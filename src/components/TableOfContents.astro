@@ -85,6 +85,46 @@ const hasHeadings = headings.length > 0;
 				closeToc();
 			}
 		});
+
+		// Highlight active section based on scroll position
+		const observeHeaders = () => {
+			const headers = Array.from(document.querySelectorAll("h2, h3, h4, h5, h6")).filter((el) => el.id);
+
+			if (headers.length === 0) return;
+
+			const tocLinks = document.querySelectorAll(".toc-link");
+
+			const observerOptions = {
+				rootMargin: "-80px 0px -80% 0px",
+				threshold: 0,
+			};
+
+			const headersObserver = new IntersectionObserver((entries) => {
+				entries.forEach((entry) => {
+					const id = entry.target.getAttribute("id");
+					const tocLink = document.querySelector(`.toc-link[href="#${id}"]`);
+
+					if (tocLink) {
+						if (entry.isIntersecting) {
+							// Remove active class from all links
+							tocLinks.forEach((link) => link.classList.remove("active"));
+							// Add active class to current link
+							tocLink.classList.add("active");
+						}
+					}
+				});
+			}, observerOptions);
+
+			headers.forEach((header) => {
+				headersObserver.observe(header);
+			});
+		};
+
+		// Run on page load
+		observeHeaders();
+
+		// Run when content might change
+		document.addEventListener("DOMContentLoaded", observeHeaders);
 	}
 </script>
 
@@ -128,7 +168,7 @@ const hasHeadings = headings.length > 0;
 		position: fixed;
 		top: 0;
 		left: 0;
-		width: 300px;
+		width: fit-content;
 		height: 100vh;
 		background-color: white;
 		box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
@@ -171,6 +211,7 @@ const hasHeadings = headings.length > 0;
 		justify-content: space-between;
 		align-items: center;
 		border-bottom: 1px solid var(--gray-200);
+		background-color: var(--gray-100);
 	}
 
 	.toc-header h3 {
@@ -193,7 +234,7 @@ const hasHeadings = headings.length > 0;
 
 	.toc-close:hover {
 		color: var(--gray-700);
-		background-color: var(--gray-100);
+		background-color: var(--gray-200);
 	}
 
 	/* TOC Content */
@@ -206,37 +247,76 @@ const hasHeadings = headings.length > 0;
 		list-style: none;
 		padding: 0;
 		margin: 0;
+		border-left: 2px solid var(--gray-200);
 	}
 
 	.toc-item {
 		margin-bottom: 0.75rem;
+		position: relative;
+	}
+
+	.toc-item::before {
+		content: "";
+		position: absolute;
+		width: 8px;
+		height: 2px;
+		background-color: var(--gray-200);
+		left: -8px;
+		top: 50%;
+		transform: translateY(-50%);
 	}
 
 	.toc-item.depth-1 {
 		font-weight: 600;
+		margin-left: 0;
+	}
+
+	.toc-item.depth-1::before {
+		width: 0;
 	}
 
 	.toc-item.depth-2 {
 		padding-left: 1rem;
+		margin-left: 0.5rem;
 	}
 
 	.toc-item.depth-3 {
-		padding-left: 2rem;
+		padding-left: 1.5rem;
+		margin-left: 1rem;
 		font-size: 0.9em;
+	}
+
+	.toc-item.depth-3::before {
+		width: 16px;
+		height: 2px;
+		background-color: var(--gray-200);
+		left: -16px;
+		top: 50%;
+		transform: translateY(-50%);
 	}
 
 	.toc-link {
 		display: block;
-		padding: 0.5rem;
+		padding: 0.5rem 0.75rem;
 		border-radius: 4px;
 		text-decoration: none;
 		color: var(--gray-700);
-		transition: all 0.2s ease;
+		transition: all 0.15s ease;
+		border-left: 2px solid transparent;
+		margin-left: -2px;
 	}
 
 	.toc-link:hover {
 		background-color: var(--gray-100);
 		color: var(--primary-dark);
+		border-left-color: var(--primary);
+	}
+
+	.toc-link.active {
+		background-color: var(--gray-100);
+		color: var(--primary);
+		border-left-color: var(--primary);
+		font-weight: 500;
 	}
 
 	/* Mobile Responsive */
