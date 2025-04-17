@@ -66,6 +66,83 @@ console.log("DocsLayout currentPath:", currentPath);
 				}
 			});
 		});
+
+		// Make inline code tags copyable
+		const inlineCodeTags = Array.from(document.querySelectorAll("code")).filter((codeEl) => !codeEl.parentElement || codeEl.parentElement.tagName !== "PRE");
+
+		inlineCodeTags.forEach((codeEl) => {
+			// Wrap code element in a span for positioning
+			const wrapper = document.createElement("span");
+			wrapper.className = "code-wrapper";
+			codeEl.parentNode?.insertBefore(wrapper, codeEl);
+			wrapper.appendChild(codeEl);
+
+			// Add copy button
+			const copyBtn = document.createElement("button");
+			copyBtn.className = "copy-btn";
+			copyBtn.innerHTML =
+				'<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+			copyBtn.title = "Copier";
+			wrapper.appendChild(copyBtn);
+
+			// Add click event to copy button
+			copyBtn.addEventListener("click", (e) => {
+				e.stopPropagation(); // Prevent event bubbling
+				const text = codeEl.textContent || "";
+
+				// Handle clipboard API
+				const copyText = () => {
+					// Show success feedback
+					copyBtn.classList.add("copied");
+					copyBtn.innerHTML =
+						'<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+
+					// Reset after 1.5 seconds
+					setTimeout(() => {
+						copyBtn.classList.remove("copied");
+						copyBtn.innerHTML =
+							'<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+					}, 1500);
+				};
+
+				// Try to use the modern clipboard API
+				if (navigator.clipboard) {
+					navigator.clipboard
+						.writeText(text)
+						.then(copyText)
+						.catch((err) => {
+							console.error("Clipboard write failed: ", err);
+							fallbackCopy(text);
+						});
+				} else {
+					fallbackCopy(text);
+				}
+
+				// Fallback for older browsers
+				function fallbackCopy(text: string) {
+					const textArea = document.createElement("textarea");
+					textArea.value = text;
+					textArea.style.position = "fixed";
+					textArea.style.opacity = "0";
+					document.body.appendChild(textArea);
+					textArea.focus();
+					textArea.select();
+
+					try {
+						const successful = document.execCommand("copy");
+						if (successful) {
+							copyText();
+						} else {
+							console.error("Fallback: Copy command was unsuccessful");
+						}
+					} catch (err) {
+						console.error("Fallback: Could not copy text: ", err);
+					}
+
+					document.body.removeChild(textArea);
+				}
+			});
+		});
 	});
 </script>
 
@@ -121,6 +198,48 @@ console.log("DocsLayout currentPath:", currentPath);
 		border-radius: 0.25rem;
 		font-size: 0.9em;
 		border: 1px solid var(--blue-200);
+	}
+
+	.article :global(.code-wrapper) {
+		position: relative;
+		display: inline-flex;
+		align-items: center;
+	}
+
+	.article :global(.copy-btn) {
+		position: absolute;
+		right: -16px;
+		top: -16px;
+		width: 28px;
+		height: 28px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: var(--primary-dark);
+		color: white;
+		border-radius: 50%;
+		border: none;
+		padding: 0;
+		opacity: 0;
+		transition:
+			opacity 0.2s ease,
+			transform 0.2s ease;
+		transform: scale(0.8);
+		cursor: pointer;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+	}
+
+	.article :global(.copy-btn.copied) {
+		background-color: #10b981; /* Green for success */
+	}
+
+	.article :global(.code-wrapper:hover .copy-btn) {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	.article :global(.code-wrapper:hover code) {
+		background-color: var(--blue-200);
 	}
 
 	.article :global(pre) {
