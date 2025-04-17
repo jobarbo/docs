@@ -1,5 +1,7 @@
 ---
 import type {CollectionEntry} from "astro:content";
+import TableOfContents from "./TableOfContents.astro";
+import NavSection from "./NavSection.astro";
 
 interface Props {
 	docs: CollectionEntry<"docs">[];
@@ -12,339 +14,35 @@ interface Props {
 }
 
 const {docs, currentPath, headings = []} = Astro.props;
-const hasHeadings = headings.length > 0;
+
+// Prepare items for the Styles section
+const styleItems = docs.map((doc) => {
+	const path = `/docs/${doc.slug}`;
+	return {
+		title: doc.data.title,
+		path: path,
+		isActive: currentPath === path,
+		isDisabled: false,
+	};
+});
+
+// Prepare items for the "coming soon" sections
+const upcomingItems = [
+	{title: "JavaScript", path: "#", isDisabled: true},
+	{title: "Composants", path: "#", isDisabled: true},
+	{title: "API", path: "#", isDisabled: true},
+];
 ---
 
 <nav class='nav'>
-	<div class='nav-section'>
-		<h3 class='nav-section-title'>Styles</h3>
-		<ul class='nav-list'>
-			{
-				docs.map((doc) => {
-					const path = `/docs/${doc.slug}`;
-
-					const isActive = currentPath === path;
-					return (
-						<li class='nav-item'>
-							<a href={path} class={`nav-link ${isActive ? "active" : ""}`} data-astro-prefetch>
-								{doc.data.title}
-							</a>
-						</li>
-					);
-				})
-			}
-		</ul>
-	</div>
-
-	<div class='nav-section'>
-		<h3 class='nav-section-title'>Sections à venir</h3>
-		<ul class='nav-list'>
-			<li class='nav-item'>
-				<a href='#' class='nav-link disabled'>JavaScript</a>
-			</li>
-			<li class='nav-item'>
-				<a href='#' class='nav-link disabled'>Composants</a>
-			</li>
-			<li class='nav-item'>
-				<a href='#' class='nav-link disabled'>API</a>
-			</li>
-		</ul>
-	</div>
+	<NavSection title='Styles' items={styleItems} />
+	<NavSection title='Sections à venir' items={upcomingItems} />
 </nav>
 
-{
-	hasHeadings && (
-		<div class='toc-container'>
-			<button id='toc-toggle' class='toc-toggle' aria-label='Toggle Table of Contents'>
-				<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-					<line x1='3' y1='12' x2='21' y2='12' />
-					<line x1='3' y1='6' x2='21' y2='6' />
-					<line x1='3' y1='18' x2='21' y2='18' />
-				</svg>
-				<span>Table des matières</span>
-			</button>
-
-			<div id='toc-drawer' class='toc-drawer'>
-				<div class='toc-header'>
-					<h3>Table des matières</h3>
-					<button id='toc-close' class='toc-close' aria-label='Close Table of Contents'>
-						<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-							<line x1='18' y1='6' x2='6' y2='18' />
-							<line x1='6' y1='6' x2='18' y2='18' />
-						</svg>
-					</button>
-				</div>
-				<nav class='toc-nav'>
-					<ul class='toc-list'>
-						{headings
-							.filter((heading) => heading.depth <= 3)
-							.map((heading) => (
-								<li class={`toc-item depth-${heading.depth}`}>
-									<a href={`#${heading.slug}`} class='toc-link'>
-										{heading.text}
-									</a>
-								</li>
-							))}
-					</ul>
-				</nav>
-			</div>
-			<div id='toc-overlay' class='toc-overlay' />
-		</div>
-	)
-}
-
-<script>
-	// Toggle the TOC drawer
-	const tocToggle = document.getElementById("toc-toggle");
-	const tocClose = document.getElementById("toc-close");
-	const tocDrawer = document.getElementById("toc-drawer");
-	const tocOverlay = document.getElementById("toc-overlay");
-
-	if (tocToggle && tocClose && tocDrawer && tocOverlay) {
-		const openToc = () => {
-			tocDrawer.classList.add("open");
-			tocOverlay.classList.add("active");
-			document.body.classList.add("toc-open");
-		};
-
-		const closeToc = () => {
-			tocDrawer.classList.remove("open");
-			tocOverlay.classList.remove("active");
-			document.body.classList.remove("toc-open");
-		};
-
-		tocToggle.addEventListener("click", openToc);
-		tocClose.addEventListener("click", closeToc);
-		tocOverlay.addEventListener("click", closeToc);
-
-		// Close TOC when clicking on links
-		const tocLinks = document.querySelectorAll(".toc-link");
-		tocLinks.forEach((link) => {
-			link.addEventListener("click", () => {
-				closeToc();
-			});
-		});
-
-		// Close TOC when pressing escape key
-		document.addEventListener("keydown", (e) => {
-			if (e.key === "Escape" && tocDrawer.classList.contains("open")) {
-				closeToc();
-			}
-		});
-	}
-</script>
+<TableOfContents headings={headings.filter((heading) => heading.depth <= 3)} />
 
 <style>
 	.nav {
 		width: 100%;
-	}
-
-	.nav-section {
-		margin-bottom: 1.5rem;
-	}
-
-	.nav-section-title {
-		font-size: 0.9rem;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		color: var(--secondary);
-		margin-bottom: 0.75rem;
-	}
-
-	.nav-list {
-		list-style: none;
-		padding: 0;
-	}
-
-	.nav-item {
-		margin-bottom: 0.25rem;
-	}
-
-	.nav-link {
-		display: block;
-		padding: 0.5rem;
-		border-radius: 0.25rem;
-		text-decoration: none;
-		color: var(--gray-700);
-		font-size: 0.95rem;
-		transition: all 0.2s ease;
-	}
-
-	.nav-link:hover {
-		background-color: var(--gray-200);
-		color: var(--primary);
-	}
-
-	.nav-link.active {
-		background-color: var(--unik);
-		color: white;
-		font-weight: 500;
-	}
-
-	.nav-link.disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
-
-	.nav-link.disabled:hover {
-		background-color: transparent;
-		color: var(--gray-700);
-	}
-
-	/* Table of Contents Styles */
-	.toc-container {
-		position: fixed;
-		left: var(--sidebar-width);
-		bottom: 1.5rem;
-		z-index: 99;
-		transition: left 0.3s ease;
-	}
-
-	.toc-toggle {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		background-color: var(--unik);
-		color: white;
-		border: none;
-		border-radius: 0 4px 4px 0;
-		padding: 0.75rem 1rem;
-		cursor: pointer;
-		box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-		transition: all 0.2s ease;
-		transform: translateX(-100%);
-	}
-
-	.toc-toggle:hover {
-		background-color: var(--primary-dark);
-	}
-
-	.toc-toggle span {
-		font-weight: 500;
-		font-size: 0.9rem;
-	}
-
-	.toc-drawer {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 300px;
-		height: 100vh;
-		background-color: white;
-		box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
-		transform: translateX(-100%);
-		transition: transform 0.3s ease;
-		z-index: 101;
-		overflow-y: auto;
-		border-right: 1px solid var(--gray-200);
-	}
-
-	.toc-drawer.open {
-		transform: translateX(0);
-	}
-
-	.toc-overlay {
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background-color: rgba(0, 0, 0, 0.5);
-		z-index: 100;
-		opacity: 0;
-		visibility: hidden;
-		transition:
-			opacity 0.3s ease,
-			visibility 0.3s ease;
-	}
-
-	.toc-overlay.active {
-		opacity: 1;
-		visibility: visible;
-	}
-
-	.toc-header {
-		padding: 1rem;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		border-bottom: 1px solid var(--gray-200);
-	}
-
-	.toc-header h3 {
-		font-size: 1.1rem;
-		color: var(--unik);
-		margin: 0;
-	}
-
-	.toc-close {
-		background: transparent;
-		border: none;
-		color: var(--gray-400);
-		cursor: pointer;
-		padding: 0.25rem;
-		border-radius: 4px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.toc-close:hover {
-		color: var(--gray-700);
-		background-color: var(--gray-100);
-	}
-
-	.toc-nav {
-		padding: 1rem;
-	}
-
-	.toc-list {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-	}
-
-	.toc-item {
-		margin-bottom: 0.75rem;
-	}
-
-	.toc-item.depth-1 {
-		font-weight: 600;
-	}
-
-	.toc-item.depth-2 {
-		padding-left: 1rem;
-	}
-
-	.toc-item.depth-3 {
-		padding-left: 2rem;
-		font-size: 0.9em;
-	}
-
-	.toc-link {
-		display: block;
-		padding: 0.5rem;
-		border-radius: 4px;
-		text-decoration: none;
-		color: var(--gray-700);
-		transition: all 0.2s ease;
-	}
-
-	.toc-link:hover {
-		background-color: var(--gray-100);
-		color: var(--primary-dark);
-	}
-
-	@media (max-width: 768px) {
-		.toc-container {
-			left: 0;
-			bottom: 1rem;
-		}
-
-		.toc-toggle {
-			transform: translateX(0);
-			border-radius: 0 4px 4px 0;
-			padding: 0.5rem 0.75rem;
-		}
 	}
 </style>

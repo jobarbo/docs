@@ -1,0 +1,84 @@
+---
+interface NavItem {
+	title: string;
+	path: string;
+	isActive?: boolean;
+	isDisabled?: boolean;
+}
+
+interface Props {
+	title: string;
+	items: NavItem[];
+}
+
+const {title, items} = Astro.props;
+---
+
+<div class='nav-section'>
+	<h3 class='nav-section-title'>{title}</h3>
+	<ul class='nav-list'>
+		{
+			items.map((item) => (
+				<li class='nav-item'>
+					<a href={item.isDisabled ? "#" : item.path} class={`nav-link ${item.isActive ? "active" : ""} ${item.isDisabled ? "disabled" : ""}`} data-astro-prefetch={!item.isDisabled}>
+						{item.title}
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</div>
+
+<style>
+	.nav-section {
+		margin-bottom: 1.5rem;
+	}
+
+	.nav-section-title {
+		font-size: 0.9rem;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: var(--secondary);
+		margin-bottom: 0.75rem;
+	}
+
+	.nav-list {
+		list-style: none;
+		padding: 0;
+	}
+
+	.nav-item {
+		margin-bottom: 0.25rem;
+	}
+
+	.nav-link {
+		display: block;
+		padding: 0.5rem;
+		border-radius: 0.25rem;
+		text-decoration: none;
+		color: var(--gray-700);
+		font-size: 0.95rem;
+		transition: all 0.2s ease;
+	}
+
+	.nav-link:hover {
+		background-color: var(--gray-200);
+		color: var(--primary);
+	}
+
+	.nav-link.active {
+		background-color: var(--unik);
+		color: white;
+		font-weight: 500;
+	}
+
+	.nav-link.disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+
+	.nav-link.disabled:hover {
+		background-color: transparent;
+		color: var(--gray-700);
+	}
+</style>

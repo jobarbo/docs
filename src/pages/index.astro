@@ -3,12 +3,54 @@ import {getCollection} from "astro:content";
 import type {CollectionEntry} from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Navigation from "../components/Navigation.astro";
+import NavSection from "../components/NavSection.astro";
 
 // Get all docs
 const allDocs = await getCollection("docs");
 const stylesDocs = allDocs
 	.filter((doc: CollectionEntry<"docs">) => doc.data.section === "styles")
 	.sort((a: CollectionEntry<"docs">, b: CollectionEntry<"docs">) => (a.data.order || 999) - (b.data.order || 999));
+
+// Get the first document to use for links
+const firstDoc = stylesDocs.length > 0 ? stylesDocs[0] : null;
+const docsBaseUrl = firstDoc ? `/docs/${firstDoc.slug}` : "/docs/index";
+
+// Feature sections
+const featureSections = [
+	{
+		title: "Styles",
+		description: "Notre framework SCSS offre un système complet pour créer des interfaces cohérentes et responsives.",
+		items: [
+			{
+				title: "Documentation des styles",
+				path: docsBaseUrl,
+				isDisabled: false,
+			},
+		],
+	},
+	{
+		title: "JavaScript (à venir)",
+		description: "Documentation pour nos utilitaires et composants JavaScript.",
+		items: [
+			{
+				title: "Documentation JavaScript",
+				path: "#",
+				isDisabled: true,
+			},
+		],
+	},
+	{
+		title: "Composants (à venir)",
+		description: "Bibliothèque de composants réutilisables pour accélérer le développement.",
+		items: [
+			{
+				title: "Documentation des composants",
+				path: "#",
+				isDisabled: true,
+			},
+		],
+	},
+];
 ---
 
 <BaseLayout title='Framework Documentation'>
@@ -17,28 +59,24 @@ const stylesDocs = allDocs
 	<div class='hero'>
 		<h1>Documentation Unik (Développement Web)</h1>
 		<p class='subtitle'>Documentation complète pour notre framework de développement</p>
-
-		<div class='cta-container'>
-			<a href='/docs/index' class='cta-button'>Explorer la documentation</a>
-		</div>
 	</div>
 
 	<div class='features'>
-		<div class='feature-card'>
-			<h2>Styles</h2>
-			<p>Notre framework SCSS offre un système complet pour créer des interfaces cohérentes et responsives.</p>
-			<a href='/docs/index' class='feature-link'>Documentation des styles</a>
-		</div>
-
-		<div class='feature-card'>
-			<h2>JavaScript (à venir)</h2>
-			<p>Documentation pour nos utilitaires et composants JavaScript.</p>
-		</div>
-
-		<div class='feature-card'>
-			<h2>Composants (à venir)</h2>
-			<p>Bibliothèque de composants réutilisables pour accélérer le développement.</p>
-		</div>
+		{
+			featureSections.map((section) => (
+				<div class='feature-card'>
+					<h2>{section.title}</h2>
+					<p>{section.description}</p>
+					<div class='feature-links'>
+						{section.items.map((item) => (
+							<a href={item.isDisabled ? "#" : item.path} class={`feature-link ${item.isDisabled ? "disabled" : ""}`}>
+								{item.title}
+							</a>
+						))}
+					</div>
+				</div>
+			))
+		}
 	</div>
 </BaseLayout>
 
@@ -59,25 +97,6 @@ const stylesDocs = allDocs
 		font-size: 1.25rem;
 		color: var(--secondary);
 		margin-bottom: 2rem;
-	}
-
-	.cta-container {
-		margin: 2rem 0;
-	}
-
-	.cta-button {
-		display: inline-block;
-		background-color: var(--primary);
-		color: white;
-		padding: 0.75rem 1.5rem;
-		border-radius: 0.5rem;
-		text-decoration: none;
-		font-weight: 500;
-		transition: background-color 0.2s ease;
-	}
-
-	.cta-button:hover {
-		background-color: var(--primary-dark);
 	}
 
 	.features {
@@ -114,6 +133,12 @@ const stylesDocs = allDocs
 		margin-bottom: 1.5rem;
 	}
 
+	.feature-links {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
 	.feature-link {
 		color: var(--primary);
 		text-decoration: none;
@@ -124,6 +149,12 @@ const stylesDocs = allDocs
 
 	.feature-link:hover {
 		text-decoration: underline;
+	}
+
+	.feature-link.disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+		pointer-events: none;
 	}
 
 	@media (max-width: 768px) {
