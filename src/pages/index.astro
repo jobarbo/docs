@@ -1,0 +1,142 @@
+---
+import {getCollection} from "astro:content";
+import type {CollectionEntry} from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Navigation from "../components/Navigation.astro";
+
+// Get all docs
+const allDocs = await getCollection("docs");
+const stylesDocs = allDocs
+	.filter((doc: CollectionEntry<"docs">) => doc.data.section === "styles")
+	.sort((a: CollectionEntry<"docs">, b: CollectionEntry<"docs">) => (a.data.order || 999) - (b.data.order || 999));
+---
+
+<BaseLayout title='Framework Documentation'>
+	<Navigation slot='sidebar' docs={stylesDocs} currentPath='/' />
+
+	<div class='hero'>
+		<h1>Documentation Unik (Développement Web)</h1>
+		<p class='subtitle'>Documentation complète pour notre framework de développement</p>
+
+		<div class='cta-container'>
+			<a href='/docs/index' class='cta-button'>Explorer la documentation</a>
+		</div>
+	</div>
+
+	<div class='features'>
+		<div class='feature-card'>
+			<h2>Styles</h2>
+			<p>Notre framework SCSS offre un système complet pour créer des interfaces cohérentes et responsives.</p>
+			<a href='/docs/index' class='feature-link'>Documentation des styles</a>
+		</div>
+
+		<div class='feature-card'>
+			<h2>JavaScript (à venir)</h2>
+			<p>Documentation pour nos utilitaires et composants JavaScript.</p>
+		</div>
+
+		<div class='feature-card'>
+			<h2>Composants (à venir)</h2>
+			<p>Bibliothèque de composants réutilisables pour accélérer le développement.</p>
+		</div>
+	</div>
+</BaseLayout>
+
+<style>
+	.hero {
+		padding: 4rem 0;
+		text-align: center;
+		max-width: 1920px;
+	}
+
+	h1 {
+		font-size: 3rem;
+		margin-bottom: 1rem;
+		color: var(--primary);
+	}
+
+	.subtitle {
+		font-size: 1.25rem;
+		color: var(--secondary);
+		margin-bottom: 2rem;
+	}
+
+	.cta-container {
+		margin: 2rem 0;
+	}
+
+	.cta-button {
+		display: inline-block;
+		background-color: var(--primary);
+		color: white;
+		padding: 0.75rem 1.5rem;
+		border-radius: 0.5rem;
+		text-decoration: none;
+		font-weight: 500;
+		transition: background-color 0.2s ease;
+	}
+
+	.cta-button:hover {
+		background-color: var(--primary-dark);
+	}
+
+	.features {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+		margin: 2rem auto 4rem;
+		max-width: 1920px;
+	}
+
+	.feature-card {
+		background-color: var(--gray-100);
+		border-radius: 0.5rem;
+		padding: 1.5rem;
+		border: 1px solid var(--gray-200);
+		transition:
+			transform 0.2s ease,
+			box-shadow 0.2s ease;
+	}
+
+	.feature-card:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+	}
+
+	.feature-card h2 {
+		font-size: 1.5rem;
+		margin-bottom: 1rem;
+		color: var(--dark);
+	}
+
+	.feature-card p {
+		color: var(--secondary);
+		margin-bottom: 1.5rem;
+	}
+
+	.feature-link {
+		color: var(--primary);
+		text-decoration: none;
+		font-weight: 500;
+		display: inline-flex;
+		align-items: center;
+	}
+
+	.feature-link:hover {
+		text-decoration: underline;
+	}
+
+	@media (max-width: 768px) {
+		.hero {
+			padding: 2rem 0;
+		}
+
+		h1 {
+			font-size: 2rem;
+		}
+
+		.features {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

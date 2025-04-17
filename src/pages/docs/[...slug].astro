@@ -1,0 +1,51 @@
+---
+import {getCollection, type CollectionEntry} from "astro:content";
+import DocsLayout from "../../layouts/DocsLayout.astro";
+
+export async function getStaticPaths() {
+	const docs = await getCollection("docs");
+
+	return docs.map((doc: CollectionEntry<"docs">) => {
+		return {
+			params: {slug: doc.slug},
+			props: {doc},
+		};
+	});
+}
+
+type Props = {
+	doc: CollectionEntry<"docs">;
+};
+
+const {doc} = Astro.props;
+const {Content, headings} = await doc.render();
+const currentPath = `/docs/${doc.slug}`;
+
+// Use the lastUpdated field from frontmatter if available, otherwise use the current date
+let formattedDate;
+if (doc.data.lastUpdated) {
+	formattedDate = doc.data.lastUpdated;
+} else {
+	formattedDate = new Date().toLocaleDateString("fr-FR", {
+		day: "2-digit",
+		month: "2-digit",
+		year: "numeric",
+	});
+}
+---
+
+<DocsLayout title={doc.data.title} description={doc.data.description} currentPath={currentPath} headings={headings}>
+	<div id='doc-content'>
+		<Content />
+	</div>
+
+	<script define:vars={{formattedDate}}>
+		// Replace [Date actuelle] with the formatted date
+		document.addEventListener("DOMContentLoaded", () => {
+			const content = document.getElementById("doc-content");
+			if (content) {
+				content.innerHTML = content.innerHTML.replace(/\[Date actuelle\]/g, formattedDate);
+			}
+		});
+	</script>
+</DocsLayout>

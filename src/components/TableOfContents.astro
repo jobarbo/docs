@@ -1,0 +1,52 @@
+---
+// TableOfContents component
+interface Props {
+	headings?: {depth: number; slug: string; text: string}[];
+}
+
+const {headings = []} = Astro.props;
+---
+
+<nav class='toc'>
+	<ul>
+		{
+			headings.map((heading) => (
+				<li class={`depth-${heading.depth}`}>
+					<a href={`#${heading.slug}`}>{heading.text}</a>
+				</li>
+			))
+		}
+	</ul>
+</nav>
+
+<style>
+	.toc {
+		margin: 1rem 0;
+	}
+
+	.toc ul {
+		list-style: none;
+		padding: 0;
+	}
+
+	.toc li {
+		margin-bottom: 0.5rem;
+	}
+
+	.depth-2 {
+		margin-left: 0;
+	}
+
+	.depth-3 {
+		margin-left: 1rem;
+	}
+
+	.depth-4 {
+		margin-left: 2rem;
+	}
+
+	.depth-5,
+	.depth-6 {
+		margin-left: 3rem;
+	}
+</style>

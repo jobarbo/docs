@@ -1,0 +1,23 @@
+{
+	"extends": "astro/tsconfigs/strict",
+	"compilerOptions": {
+		"plugins": [
+			{
+				"name": "@astrojs/ts-plugin"
+			}
+		],
+		"jsx": "preserve",
+		"jsxImportSource": "astro",
+		"verbatimModuleSyntax": true,
+		"moduleResolution": "node",
+		"module": "ESNext",
+		"target": "ESNext",
+		"strictNullChecks": true,
+		"allowJs": true,
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["src/*"]
+		}
+	},
+	"include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.astro"]
+}

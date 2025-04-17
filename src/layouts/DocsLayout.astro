@@ -1,0 +1,152 @@
+---
+import {getCollection} from "astro:content";
+import type {CollectionEntry} from "astro:content";
+import BaseLayout from "./BaseLayout.astro";
+import Navigation from "../components/Navigation.astro";
+
+interface Props {
+	title: string;
+	description?: string;
+	currentPath: string;
+	headings?: {
+		depth: number;
+		slug: string;
+		text: string;
+	}[];
+}
+
+const {title, description, currentPath, headings = []} = Astro.props;
+
+// Get all the documentation pages sorted by order
+const allDocs = await getCollection("docs");
+const stylesDocs = allDocs
+	.filter((doc: CollectionEntry<"docs">) => doc.data.section === "styles")
+	.sort((a: CollectionEntry<"docs">, b: CollectionEntry<"docs">) => (a.data.order || 999) - (b.data.order || 999));
+
+// Debug
+console.log("DocsLayout currentPath:", currentPath);
+---
+
+<BaseLayout title={title} description={description}>
+	<div slot='sidebar'>
+		<Navigation docs={stylesDocs} currentPath={currentPath} headings={headings} />
+	</div>
+
+	<article class='article'>
+		<slot />
+	</article>
+</BaseLayout>
+
+<style>
+	article {
+		width: 100%;
+		max-width: 1920px;
+		margin: 0 auto;
+	}
+
+	.article {
+		margin-bottom: 4rem;
+	}
+
+	.article :global(h1) {
+		font-size: 2.5rem;
+		margin-bottom: 1rem;
+		color: var(--unik);
+	}
+
+	.article :global(h2) {
+		font-size: 1.75rem;
+		margin: 2rem 0 1rem;
+		padding-bottom: 0.5rem;
+		border-bottom: 1px solid var(--gray-200);
+	}
+
+	.article :global(h3) {
+		font-size: 1.25rem;
+		margin: 1.5rem 0 0.75rem;
+	}
+
+	.article :global(p) {
+		margin-bottom: 1rem;
+	}
+
+	.article :global(ul),
+	.article :global(ol) {
+		margin-bottom: 1rem;
+		padding-left: 1.5rem;
+	}
+
+	.article :global(li) {
+		margin-bottom: 0.5rem;
+	}
+
+	.article :global(code) {
+		font-family: Courier, monospace;
+		background-color: var(--blue-100);
+		font-weight: 500;
+		color: var(--gray-900);
+		padding: 0.2rem 0.4rem;
+		border-radius: 0.25rem;
+		font-size: 0.9em;
+		border: 1px solid var(--blue-200);
+	}
+
+	.article :global(pre) {
+		background-color: var(--dark);
+		color: var(--light);
+		padding: 1rem;
+		border-radius: 0.5rem;
+		overflow: auto;
+		margin: 1rem 0;
+	}
+
+	.article :global(.github-dark code) {
+		border: 0px;
+	}
+
+	.article :global(pre code) {
+		background-color: transparent;
+		padding: 0;
+		color: inherit;
+	}
+
+	.article :global(a) {
+		color: var(--primary-dark);
+		text-decoration: none;
+	}
+
+	.article :global(a:hover) {
+		text-decoration: underline;
+	}
+
+	.article :global(blockquote) {
+		border-left: 4px solid var(--primary);
+		padding-left: 1rem;
+		color: var(--secondary);
+		margin: 1rem 0;
+	}
+
+	.article :global(hr) {
+		border: none;
+		border-top: 1px solid var(--gray-200);
+		margin: 2rem 0;
+	}
+
+	.article :global(table) {
+		width: 100%;
+		border-collapse: collapse;
+		margin: 1rem 0;
+	}
+
+	.article :global(th),
+	.article :global(td) {
+		padding: 0.5rem;
+		border: 1px solid var(--gray-300);
+	}
+
+	.article :global(th) {
+		background-color: var(--gray-100);
+		font-weight: 600;
+		text-align: left;
+	}
+</style>
