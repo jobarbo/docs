@@ -74,8 +74,30 @@ const hasHeadings = headings.length > 0;
 		// Close TOC when clicking on links
 		const tocLinks = document.querySelectorAll(".toc a");
 		tocLinks.forEach((link) => {
-			link.addEventListener("click", () => {
+			link.addEventListener("click", (e) => {
+				e.preventDefault();
 				closeToc();
+
+				// Get the target ID from the href
+				const href = link.getAttribute("href");
+				if (href) {
+					const targetId = href.substring(1);
+					const targetElement = document.getElementById(targetId);
+
+					if (targetElement) {
+						// Add a small delay to allow the TOC to close first
+						setTimeout(() => {
+							// Scroll to the element with smooth behavior
+							targetElement.scrollIntoView({
+								behavior: "smooth",
+								block: "start",
+							});
+
+							// Update URL hash without jumping
+							window.history.pushState({}, "", `#${targetId}`);
+						}, 300);
+					}
+				}
 			});
 		});
 

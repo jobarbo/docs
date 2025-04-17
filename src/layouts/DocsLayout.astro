@@ -37,6 +37,38 @@ console.log("DocsLayout currentPath:", currentPath);
 	</article>
 </BaseLayout>
 
+<script>
+	// Handle smooth scrolling for all in-page anchor links
+	document.addEventListener("DOMContentLoaded", () => {
+		// Select all links that point to an ID on the same page
+		const inPageLinks = document.querySelectorAll('a[href^="#"]:not(.toc-link)');
+
+		inPageLinks.forEach((link) => {
+			link.addEventListener("click", (e) => {
+				// Get the target ID from the href
+				const href = link.getAttribute("href");
+				if (href && href !== "#") {
+					e.preventDefault();
+
+					const targetId = href.substring(1);
+					const targetElement = document.getElementById(targetId);
+
+					if (targetElement) {
+						// Scroll to the element with smooth behavior
+						targetElement.scrollIntoView({
+							behavior: "smooth",
+							block: "start",
+						});
+
+						// Update URL hash without jumping
+						window.history.pushState({}, "", href);
+					}
+				}
+			});
+		});
+	});
+</script>
+
 <style>
 	article {
 		width: 100%;

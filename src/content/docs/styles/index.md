@@ -37,7 +37,7 @@ Cette documentation est organisée en sections distinctes, chacune couvrant un a
 
 ## Variables
 
-**[Documentation complète](./variables)**
+**[Documentation complète](/docs/styles/variables)**
 
 Le fichier `_variables.scss` est la pierre angulaire de notre framework, définissant toutes les valeurs fondamentales qui façonnent l'apparence et le comportement de l'interface.
 
@@ -64,13 +64,13 @@ Le fichier `_variables.scss` est la pierre angulaire de notre framework, défini
 }
 ```
 
-[→ Voir la documentation détaillée des variables](./variables)
+[→ Voir la documentation détaillée des variables](/docs/styles/variables)
 
 ---
 
 ## Fonctions
 
-**[Documentation complète](./functions)**
+**[Documentation complète](/docs/styles/functions)**
 
 Le fichier `_functions.scss` contient un ensemble de fonctions et mixins utilitaires qui facilitent la création de designs responsives et proportionnels.
 
@@ -94,13 +94,13 @@ padding: to-vw(40, true, 20, 60); // clamp(20px, 2.08vw, 60px)
 margin: get-padding("desktop", "medium");
 ```
 
-[→ Voir la documentation détaillée des fonctions](./functions)
+[→ Voir la documentation détaillée des fonctions](/docs/styles/functions)
 
 ---
 
 ## Media Queries
 
-**[Documentation complète](./mediaqueries)**
+**[Documentation complète](/docs/styles/mediaqueries)**
 
 Le fichier `_mediaqueries.scss` fournit des mixins pour gérer facilement les styles responsives à travers différentes tailles d'écran.
 
@@ -126,13 +126,13 @@ Le fichier `_mediaqueries.scss` fournit des mixins pour gérer facilement les st
 }
 ```
 
-[→ Voir la documentation détaillée des media queries](./mediaqueries)
+[→ Voir la documentation détaillée des media queries](/docs/styles/mediaqueries)
 
 ---
 
 ## Typographie
 
-**[Documentation complète](./typography)**
+**[Documentation complète](/docs/styles/typography)**
 
 Le fichier `_typography.scss` offre un système complet pour gérer la typographie de manière cohérente et responsive.
 
@@ -158,13 +158,13 @@ Le fichier `_typography.scss` offre un système complet pour gérer la typograph
 }
 ```
 
-[→ Voir la documentation détaillée de la typographie](./typography)
+[→ Voir la documentation détaillée de la typographie](/docs/styles/typography)
 
 ---
 
 ## Conteneurs
 
-**[Documentation complète](./container)**
+**[Documentation complète](/docs/styles/container)**
 
 Le fichier `_container.scss` fournit un système flexible pour créer des conteneurs avec des paddings et des largeurs cohérents.
 
@@ -200,13 +200,13 @@ Le fichier `_container.scss` fournit un système flexible pour créer des conten
 }
 ```
 
-[→ Voir la documentation détaillée des conteneurs](./container)
+[→ Voir la documentation détaillée des conteneurs](/docs/styles/container)
 
 ---
 
 ## Transitions
 
-**[Documentation complète](./transitions)**
+**[Documentation complète](/docs/styles/transitions)**
 
 Le fichier `_transitions.scss` contient une collection de courbes d'accélération (easing) pour les animations et transitions CSS.
 
@@ -228,13 +228,13 @@ Le fichier `_transitions.scss` contient une collection de courbes d'accélérati
 }
 ```
 
-[→ Voir la documentation détaillée des transitions](./transitions)
+[→ Voir la documentation détaillée des transitions](/docs/styles/transitions)
 
 ---
 
 ## WYSIWYG
 
-**[Documentation complète](./wysiwyg)**
+**[Documentation complète](/docs/styles/wysiwyg)**
 
 Le fichier `_wysiwyg.scss` définit des styles pour le contenu éditable et les éditeurs visuels.
 
@@ -254,7 +254,7 @@ Le fichier `_wysiwyg.scss` définit des styles pour le contenu éditable et les 
 }
 ```
 
-[→ Voir la documentation détaillée du WYSIWYG](./wysiwyg)
+[→ Voir la documentation détaillée du WYSIWYG](/docs/styles/wysiwyg)
 
 ---
 
