@@ -1,12 +1,12 @@
 ---
-title: "Documentation du Framework SCSS"
+title: "Sommaire de la documentation SCSS"
 description: "Documentation complète de notre framework SCSS"
 order: 1
 section: "styles"
 lastUpdated: "16/08/2023"
 ---
 
-# Documentation du Framework SCSS
+# Sommaire de la documentation SCSS
 
 ## Introduction
 
