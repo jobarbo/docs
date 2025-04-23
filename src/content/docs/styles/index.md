@@ -1,5 +1,5 @@
 ---
-title: "Sommaire de la documentation SCSS"
+title: "Sommaire de la documentation"
 description: "Documentation complète de notre framework SCSS"
 order: 1
 section: "styles"
