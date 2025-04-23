@@ -188,7 +188,7 @@ $titles: (
 		// Taille minimale
 		fs_max: 120,
 		// Taille maximale
-		// ...,,,,,
+		// ...,,,,,,
 	),
 	// ... autres niveaux de titre
 );
