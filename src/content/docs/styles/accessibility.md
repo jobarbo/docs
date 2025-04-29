@@ -7,17 +7,30 @@ section: "styles"
 
 # Documentation Accessibility
 
+## Table des matières
+
+- [Documentation Accessibility](#documentation-accessibility)
+  - [Table des matières](#table-des-matières)
+  - [Introduction](#introduction)
+  - [Fonctionnalités](#fonctionnalités)
+    - [Skip to Content](#skip-to-content)
+    - [Focus Visible](#focus-visible)
+    - [Mode Contraste Élevé](#mode-contraste-élevé)
+    - [Préférence de Réduction de Mouvement](#préférence-de-réduction-de-mouvement)
+    - [Texte pour Lecteurs d'Écran](#texte-pour-lecteurs-décran)
+    - [Helpers ARIA](#helpers-aria)
+    - [Styles de Focus pour Éléments Interactifs](#styles-de-focus-pour-éléments-interactifs)
+  - [Utilisation type](#utilisation-type)
+    - [Ajouter un texte accessible uniquement aux lecteurs d'écran](#ajouter-un-texte-accessible-uniquement-aux-lecteurs-décran)
+    - [Implémenter un lien "Skip to content"](#implémenter-un-lien-skip-to-content)
+    - [Ajuster les éléments pour le mode contraste élevé](#ajuster-les-éléments-pour-le-mode-contraste-élevé)
+  - [Bonnes pratiques](#bonnes-pratiques)
+  - [Tableau de références](#tableau-de-références)
+  - [Références](#références)
+
 ## Introduction
 
 Le fichier `_accessibility.scss` fournit un ensemble de styles et d'utilitaires pour améliorer l'accessibilité du site web. Ces styles assurent que le site est utilisable par tous, y compris les personnes utilisant des technologies d'assistance ou ayant des préférences d'affichage spécifiques.
-
-## Contenu principal
-
-- Lien "Skip to content" pour la navigation au clavier
-- Utilitaires de visibilité pour les lecteurs d'écran
-- Styles pour le focus visible (utilisateurs clavier)
-- Adaptations pour le mode contraste élevé
-- Préférences de réduction de mouvement
 
 ## Fonctionnalités
 

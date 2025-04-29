@@ -91,14 +91,6 @@ Le mixin `container` s'adapte automatiquement à quatre points de rupture diffé
 
 > **Mise à jour importante** : Le système utilise désormais la variable `$design-width` au lieu d'une valeur codée en dur (1920px), ce qui permet une meilleure cohérence et personnalisation.
 
-```scss
-// Adaptation aux grands écrans
-@media all and (min-width: $design-width) {
-	$xlarge-value: map-get($padding, xlarge);
-	padding: if(type-of($xlarge-value) == "list", $xlarge-value, 0 $xlarge-value);
-}
-```
-
 ## Personnalisation des conteneurs
 
 ### Personnalisation des paddings

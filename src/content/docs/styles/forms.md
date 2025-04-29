@@ -11,7 +11,30 @@ section: "styles"
 
 Le fichier `_forms.scss` établit des styles de base cohérents pour tous les éléments de formulaire du site. Ces styles assurent une expérience utilisateur fluide et accessible tout en maintenant une apparence uniforme à travers les différents types d'entrées.
 
-### Structure HTML type
+## Table des matières
+
+- [Introduction](#introduction)
+- [Structure HTML type](#structure-html-type)
+- [Fonctionnalités](#fonctionnalités)
+  - [Styles de Base pour Éléments de Formulaire](#styles-de-base-pour-éléments-de-formulaire)
+  - [Champs de Texte](#champs-de-texte)
+  - [Zone de Texte (Textarea)](#zone-de-texte-textarea)
+  - [Sélecteurs (Select)](#sélecteurs-select)
+  - [Cases à Cocher et Boutons Radio](#cases-à-cocher-et-boutons-radio)
+  - [Groupes de Formulaire](#groupes-de-formulaire)
+  - [Étiquettes](#étiquettes)
+  - [Messages d'Erreur](#messages-derreur)
+  - [Indicateur de Champ Obligatoire](#indicateur-de-champ-obligatoire)
+- [Utilisation type](#utilisation-type)
+  - [Formulaire de Contact](#formulaire-de-contact)
+  - [Sélecteur Personnalisé](#sélecteur-personnalisé)
+  - [Cases à Cocher](#cases-à-cocher)
+- [Tableau de références](#tableau-de-références)
+- [Bonnes pratiques](#bonnes-pratiques)
+- [Compatibilité](#compatibilité)
+- [Références](#références)
+
+## Structure HTML type
 
 ```html
 <div class="form-group">
@@ -20,13 +43,6 @@ Le fichier `_forms.scss` établit des styles de base cohérents pour tous les é
 	<div class="form-error">Message d'erreur</div>
 </div>
 ```
-
-## Contenu principal
-
-- Styles de base pour tous les éléments de formulaire
-- Styles spécifiques pour les champs de texte, cases à cocher, et boutons radio
-- Gestion des états (focus, disabled, error)
-- Mise en forme des groupes de formulaires et des étiquettes
 
 ## Fonctionnalités
 

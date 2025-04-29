@@ -11,7 +11,47 @@ section: "styles"
 
 Le fichier `_utilities.scss` fournit un ensemble complet de classes utilitaires qui permettent d'appliquer rapidement des styles courants sans écrire de CSS personnalisé. Ces classes suivent une approche "atomic CSS" et permettent de construire des interfaces rapidement tout en maintenant la cohérence visuelle.
 
-### Combinaison rapide
+## Table des matières
+
+- [Documentation Utilities](#documentation-utilities)
+  - [Introduction](#introduction)
+  - [Table des matières](#table-des-matières)
+  - [Combinaison rapide](#combinaison-rapide)
+  - [Mixins utilitaires](#mixins-utilitaires)
+    - [Text Truncate](#text-truncate)
+    - [Focus Outline](#focus-outline)
+    - [Visually Hidden](#visually-hidden)
+  - [Fonctionnalités](#fonctionnalités)
+    - [Système d'Espacement](#système-despacement)
+    - [Utilitaires de Marge](#utilitaires-de-marge)
+    - [Utilitaires de Padding](#utilitaires-de-padding)
+    - [Utilitaires d'Affichage](#utilitaires-daffichage)
+    - [Utilitaires Flexbox](#utilitaires-flexbox)
+    - [Utilitaires de Texte](#utilitaires-de-texte)
+    - [Utilitaires de Dimensions](#utilitaires-de-dimensions)
+    - [Utilitaires de Position](#utilitaires-de-position)
+    - [Utilitaires de Bordure](#utilitaires-de-bordure)
+    - [Utilitaires Responsives](#utilitaires-responsives)
+  - [Utilisation type](#utilisation-type)
+    - [Espacement](#espacement)
+    - [Mise en page Flexbox](#mise-en-page-flexbox)
+    - [Formatage de Texte](#formatage-de-texte)
+    - [Responsive](#responsive)
+    - [Combinaison d'Utilitaires](#combinaison-dutilitaires)
+  - [Utilisation des mixins](#utilisation-des-mixins)
+    - [Text Truncate](#text-truncate-1)
+    - [Focus Outline](#focus-outline-1)
+    - [Visually Hidden](#visually-hidden-1)
+  - [Bonnes pratiques](#bonnes-pratiques)
+  - [Extension](#extension)
+  - [Tableau de références](#tableau-de-références)
+    - [Espacement](#espacement-1)
+    - [Display \& Layout](#display--layout)
+    - [Dimensions \& Positions](#dimensions--positions)
+    - [Responsive](#responsive-1)
+  - [Références](#références)
+
+## Combinaison rapide
 
 ```html
 <!-- Carte/Card avec flex -->
@@ -28,16 +68,40 @@ Le fichier `_utilities.scss` fournit un ensemble complet de classes utilitaires 
 </div>
 ```
 
-## Contenu principal
+## Mixins utilitaires
 
-- Utilitaires d'espacement (margin, padding)
-- Utilitaires d'affichage (display)
-- Utilitaires flexbox
-- Utilitaires de texte
-- Utilitaires de dimensions (width/height)
-- Utilitaires de position
-- Utilitaires de bordure
-- Utilitaires responsives
+### Text Truncate
+
+```scss
+@mixin text-truncate {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+```
+
+Ce mixin permet de tronquer du texte avec des points de suspension lorsqu'il dépasse la largeur de son conteneur.
+
+### Focus Outline
+
+```scss
+@mixin focus-outline {
+	outline: 3px solid #4d90fe;
+	outline-offset: 2px;
+}
+```
+
+Ce mixin applique un style de contour cohérent pour l'état de focus des éléments interactifs, améliorant ainsi l'accessibilité au clavier.
+
+### Visually Hidden
+
+```scss
+@mixin visually-hidden {
+	visibility: hidden;
+}
+```
+
+Ce mixin permet de masquer visuellement un élément tout en le gardant accessible aux technologies d'assistance.
 
 ## Fonctionnalités
 
@@ -402,6 +466,43 @@ Classes spécifiques aux breakpoints pour un contrôle responsive de l'affichage
 	<p class="mb-3">Description</p>
 	<button class="mt-auto">Action</button>
 </div>
+```
+
+## Utilisation des mixins
+
+### Text Truncate
+
+```scss
+// Dans un fichier SCSS
+.custom-title {
+	@include text-truncate;
+	max-width: 200px;
+}
+```
+
+```html
+<!-- Dans le HTML -->
+<div class="text-truncate">Ce texte sera tronqué avec des points de suspension s'il dépasse la largeur disponible</div>
+```
+
+### Focus Outline
+
+```scss
+// Dans un fichier SCSS
+.custom-button {
+	&:focus {
+		@include focus-outline;
+	}
+}
+```
+
+### Visually Hidden
+
+```scss
+// Dans un fichier SCSS
+.screen-reader-text {
+	@include visually-hidden;
+}
 ```
 
 ## Bonnes pratiques
