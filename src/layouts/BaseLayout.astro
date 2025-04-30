@@ -68,6 +68,16 @@ const {title, description = "UNIK - Documentation"} = Astro.props;
 				sidebarToggle.addEventListener("click", () => {
 					body.classList.toggle("sidebar-hidden");
 
+					// Ensure smooth transition
+					requestAnimationFrame(() => {
+						document.documentElement.style.setProperty("--content-transition", "active");
+
+						// Remove transition class after animation completes
+						setTimeout(() => {
+							document.documentElement.style.setProperty("--content-transition", "");
+						}, 300);
+					});
+
 					// Save preference
 					localStorage.setItem("sidebarHidden", body.classList.contains("sidebar-hidden").toString());
 				});
@@ -103,6 +113,7 @@ const {title, description = "UNIK - Documentation"} = Astro.props;
 		--sidebar-width: 280px;
 		--header-height: 60px;
 		--content-width: 900px;
+		--content-transition: "";
 	}
 
 	* {
@@ -174,7 +185,9 @@ const {title, description = "UNIK - Documentation"} = Astro.props;
 		flex: 1;
 		padding: 4em;
 		overflow-y: auto;
-		transition: margin-left 0.3s ease;
+		transition: all 0.3s ease;
+		max-width: 100%;
+		width: 100%;
 	}
 
 	.sidebar-toggle {
@@ -206,6 +219,11 @@ const {title, description = "UNIK - Documentation"} = Astro.props;
 	/* When sidebar is hidden */
 	:global(body.sidebar-hidden) .sidebar {
 		transform: translateX(-100%);
+	}
+
+	:global(body.sidebar-hidden) .content {
+		margin-left: calc(-1 * var(--sidebar-width));
+		width: calc(100% + var(--sidebar-width));
 	}
 
 	:global(body.sidebar-hidden) .sidebar-toggle {
@@ -255,6 +273,7 @@ const {title, description = "UNIK - Documentation"} = Astro.props;
 
 		.content {
 			margin-left: 0;
+			width: 100%;
 		}
 	}
 </style>

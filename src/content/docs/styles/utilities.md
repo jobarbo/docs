@@ -11,45 +11,27 @@ section: "styles"
 
 Le fichier `_utilities.scss` fournit un ensemble complet de classes utilitaires qui permettent d'appliquer rapidement des styles courants sans écrire de CSS personnalisé. Ces classes suivent une approche "atomic CSS" et permettent de construire des interfaces rapidement tout en maintenant la cohérence visuelle.
 
-## Table des matières
+## Sommaire
 
-- [Documentation Utilities](#documentation-utilities)
-  - [Introduction](#introduction)
-  - [Table des matières](#table-des-matières)
-  - [Combinaison rapide](#combinaison-rapide)
-  - [Mixins utilitaires](#mixins-utilitaires)
-    - [Text Truncate](#text-truncate)
-    - [Focus Outline](#focus-outline)
-    - [Visually Hidden](#visually-hidden)
-  - [Fonctionnalités](#fonctionnalités)
-    - [Système d'Espacement](#système-despacement)
-    - [Utilitaires de Marge](#utilitaires-de-marge)
-    - [Utilitaires de Padding](#utilitaires-de-padding)
-    - [Utilitaires d'Affichage](#utilitaires-daffichage)
-    - [Utilitaires Flexbox](#utilitaires-flexbox)
-    - [Utilitaires de Texte](#utilitaires-de-texte)
-    - [Utilitaires de Dimensions](#utilitaires-de-dimensions)
-    - [Utilitaires de Position](#utilitaires-de-position)
-    - [Utilitaires de Bordure](#utilitaires-de-bordure)
-    - [Utilitaires Responsives](#utilitaires-responsives)
-  - [Utilisation type](#utilisation-type)
-    - [Espacement](#espacement)
-    - [Mise en page Flexbox](#mise-en-page-flexbox)
-    - [Formatage de Texte](#formatage-de-texte)
-    - [Responsive](#responsive)
-    - [Combinaison d'Utilitaires](#combinaison-dutilitaires)
-  - [Utilisation des mixins](#utilisation-des-mixins)
-    - [Text Truncate](#text-truncate-1)
-    - [Focus Outline](#focus-outline-1)
-    - [Visually Hidden](#visually-hidden-1)
-  - [Bonnes pratiques](#bonnes-pratiques)
-  - [Extension](#extension)
-  - [Tableau de références](#tableau-de-références)
-    - [Espacement](#espacement-1)
-    - [Display \& Layout](#display--layout)
-    - [Dimensions \& Positions](#dimensions--positions)
-    - [Responsive](#responsive-1)
-  - [Références](#références)
+1. [Introduction](#introduction)
+2. [Combinaison rapide](#combinaison-rapide)
+3. [Mixins utilitaires](#mixins-utilitaires)
+4. [Système d'Espacement](#système-despacement)
+5. [Utilitaires de Marge](#utilitaires-de-marge)
+6. [Utilitaires de Padding](#utilitaires-de-padding)
+7. [Utilitaires d'Affichage](#utilitaires-daffichage)
+8. [Utilitaires Flexbox](#utilitaires-flexbox)
+9. [Utilitaires de Texte](#utilitaires-de-texte)
+10. [Utilitaires de Dimensions](#utilitaires-de-dimensions)
+11. [Utilitaires de Position](#utilitaires-de-position)
+12. [Utilitaires de Bordure](#utilitaires-de-bordure)
+13. [Utilitaires Responsives](#utilitaires-responsives)
+14. [Utilisation type](#utilisation-type)
+15. [Utilisation des mixins](#utilisation-des-mixins)
+16. [Bonnes pratiques](#bonnes-pratiques)
+17. [Extension](#extension)
+18. [Tableau de références](#tableau-de-références)
+19. [Références](#références)
 
 ## Combinaison rapide
 
@@ -103,9 +85,7 @@ Ce mixin applique un style de contour cohérent pour l'état de focus des élém
 
 Ce mixin permet de masquer visuellement un élément tout en le gardant accessible aux technologies d'assistance.
 
-## Fonctionnalités
-
-### Système d'Espacement
+## Système d'Espacement
 
 ```scss
 $spacer: 1rem;
@@ -126,7 +106,7 @@ $spacers: (
 
 Le système d'espacement est basé sur une variable `$spacer` (1rem) et génère des classes pour les marges et paddings avec différentes tailles.
 
-### Utilitaires de Marge
+## Utilitaires de Marge
 
 ```scss
 @each $key, $value in $spacers {
@@ -158,7 +138,7 @@ Le système d'espacement est basé sur une variable `$spacer` (1rem) et génère
 
 Génère des classes comme `.m-3`, `.mt-2`, `.mx-4`, etc. pour appliquer des marges de différentes tailles.
 
-### Utilitaires de Padding
+## Utilitaires de Padding
 
 ```scss
 @each $key, $value in $spacers {
@@ -190,7 +170,7 @@ Génère des classes comme `.m-3`, `.mt-2`, `.mx-4`, etc. pour appliquer des mar
 
 Génère des classes comme `.p-3`, `.pt-2`, `.px-4`, etc. pour appliquer des paddings de différentes tailles.
 
-### Utilitaires d'Affichage
+## Utilitaires d'Affichage
 
 ```scss
 .d-none {
@@ -215,7 +195,7 @@ Génère des classes comme `.p-3`, `.pt-2`, `.px-4`, etc. pour appliquer des pad
 
 Classes pour contrôler la propriété `display` des éléments.
 
-### Utilitaires Flexbox
+## Utilitaires Flexbox
 
 ```scss
 .flex-row {
@@ -264,7 +244,7 @@ Classes pour contrôler la propriété `display` des éléments.
 
 Classes pour configurer facilement les conteneurs flexbox.
 
-### Utilitaires de Texte
+## Utilitaires de Texte
 
 ```scss
 .text-left {
@@ -295,7 +275,7 @@ Classes pour configurer facilement les conteneurs flexbox.
 
 Classes pour modifier l'apparence et l'alignement du texte.
 
-### Utilitaires de Dimensions
+## Utilitaires de Dimensions
 
 ```scss
 .w-100 {
@@ -326,7 +306,7 @@ Classes pour modifier l'apparence et l'alignement du texte.
 
 Classes pour définir rapidement la largeur et la hauteur des éléments.
 
-### Utilitaires de Position
+## Utilitaires de Position
 
 ```scss
 .position-relative {
@@ -345,7 +325,7 @@ Classes pour définir rapidement la largeur et la hauteur des éléments.
 
 Classes pour contrôler le positionnement des éléments.
 
-### Utilitaires de Bordure
+## Utilitaires de Bordure
 
 ```scss
 .border {
@@ -370,7 +350,7 @@ Classes pour contrôler le positionnement des éléments.
 
 Classes pour ajouter ou supprimer des bordures.
 
-### Utilitaires Responsives
+## Utilitaires Responsives
 
 ```scss
 @include mobile-only {

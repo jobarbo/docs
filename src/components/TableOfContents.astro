@@ -154,10 +154,10 @@ const hasHeadings = headings.length > 0;
 	/* Table of Contents Container */
 	.toc-container {
 		position: fixed;
-		left: var(--sidebar-width);
-		bottom: 1.5rem;
+		right: 1.5rem;
+		top: 1.5rem;
 		z-index: 99;
-		transition: left 0.3s ease;
+		transition: all 0.3s ease;
 	}
 
 	/* Toggle Button */
@@ -168,12 +168,11 @@ const hasHeadings = headings.length > 0;
 		background-color: var(--unik);
 		color: white;
 		border: none;
-		border-radius: 4px 0 0 4px;
+		border-radius: 4px;
 		padding: 0.75rem 1rem;
 		cursor: pointer;
 		box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 		transition: all 0.2s ease;
-		transform: translateX(-100%);
 	}
 
 	.toc-toggle:hover {
@@ -344,14 +343,17 @@ const hasHeadings = headings.length > 0;
 	/* Mobile Responsive */
 	@media (max-width: 768px) {
 		.toc-container {
-			left: 0;
-			bottom: 1rem;
+			right: 1rem;
+			top: 1rem;
 		}
 
 		.toc-toggle {
-			transform: translateX(0);
-			border-radius: 0 4px 4px 0;
 			padding: 0.5rem 0.75rem;
+		}
+
+		/* Adjust for mobile layout when sidebar is hidden */
+		:global(body.sidebar-hidden) .toc-container {
+			right: 1rem;
 		}
 	}
 </style>

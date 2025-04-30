@@ -7,34 +7,26 @@ section: "styles"
 
 # Documentation Accessibility
 
-## Table des matières
-
-- [Documentation Accessibility](#documentation-accessibility)
-  - [Table des matières](#table-des-matières)
-  - [Introduction](#introduction)
-  - [Fonctionnalités](#fonctionnalités)
-    - [Skip to Content](#skip-to-content)
-    - [Focus Visible](#focus-visible)
-    - [Mode Contraste Élevé](#mode-contraste-élevé)
-    - [Préférence de Réduction de Mouvement](#préférence-de-réduction-de-mouvement)
-    - [Texte pour Lecteurs d'Écran](#texte-pour-lecteurs-décran)
-    - [Helpers ARIA](#helpers-aria)
-    - [Styles de Focus pour Éléments Interactifs](#styles-de-focus-pour-éléments-interactifs)
-  - [Utilisation type](#utilisation-type)
-    - [Ajouter un texte accessible uniquement aux lecteurs d'écran](#ajouter-un-texte-accessible-uniquement-aux-lecteurs-décran)
-    - [Implémenter un lien "Skip to content"](#implémenter-un-lien-skip-to-content)
-    - [Ajuster les éléments pour le mode contraste élevé](#ajuster-les-éléments-pour-le-mode-contraste-élevé)
-  - [Bonnes pratiques](#bonnes-pratiques)
-  - [Tableau de références](#tableau-de-références)
-  - [Références](#références)
-
 ## Introduction
 
 Le fichier `_accessibility.scss` fournit un ensemble de styles et d'utilitaires pour améliorer l'accessibilité du site web. Ces styles assurent que le site est utilisable par tous, y compris les personnes utilisant des technologies d'assistance ou ayant des préférences d'affichage spécifiques.
 
-## Fonctionnalités
+## Sommaire
 
-### Skip to Content
+1. [Introduction](#introduction)
+2. [Skip to Content](#skip-to-content)
+3. [Focus Visible](#focus-visible)
+4. [Mode Contraste Élevé](#mode-contraste-élevé)
+5. [Préférence de Réduction de Mouvement](#préférence-de-réduction-de-mouvement)
+6. [Texte pour Lecteurs d'Écran](#texte-pour-lecteurs-décran)
+7. [Helpers ARIA](#helpers-aria)
+8. [Styles de Focus pour Éléments Interactifs](#styles-de-focus-pour-éléments-interactifs)
+9. [Utilisation type](#utilisation-type)
+10. [Bonnes pratiques](#bonnes-pratiques)
+11. [Tableau de références](#tableau-de-références)
+12. [Références](#références)
+
+## Skip to Content
 
 ```scss
 .skip-to-content {
@@ -62,7 +54,7 @@ Le fichier `_accessibility.scss` fournit un ensemble de styles et d'utilitaires 
 
 Le lien "Skip to content" permet aux utilisateurs de clavier de contourner la navigation et d'accéder directement au contenu principal. Il est visuellement caché mais devient visible lorsqu'il reçoit le focus.
 
-### Focus Visible
+## Focus Visible
 
 ```scss
 .js-focus-visible :focus:not(.focus-visible) {
@@ -76,7 +68,7 @@ Le lien "Skip to content" permet aux utilisateurs de clavier de contourner la na
 
 Ces classes fonctionnent avec la bibliothèque `focus-visible` pour afficher les contours de focus uniquement pour les utilisateurs de clavier, pas pour les clics de souris.
 
-### Mode Contraste Élevé
+## Mode Contraste Élevé
 
 ```scss
 @media (forced-colors: active) {
@@ -88,7 +80,7 @@ Ces classes fonctionnent avec la bibliothèque `focus-visible` pour afficher les
 
 Détecte automatiquement le mode contraste élevé et applique des ajustements pour améliorer la visibilité.
 
-### Préférence de Réduction de Mouvement
+## Préférence de Réduction de Mouvement
 
 ```scss
 @media (prefers-reduced-motion: reduce) {
@@ -103,7 +95,7 @@ Détecte automatiquement le mode contraste élevé et applique des ajustements p
 
 Respecte la préférence utilisateur de réduction de mouvement en désactivant ou en réduisant considérablement les animations et transitions.
 
-### Texte pour Lecteurs d'Écran
+## Texte pour Lecteurs d'Écran
 
 ```scss
 .sr-only {
@@ -113,7 +105,7 @@ Respecte la préférence utilisateur de réduction de mouvement en désactivant 
 
 Classe utilitaire pour masquer visuellement du contenu tout en le rendant accessible aux technologies d'assistance.
 
-### Helpers ARIA
+## Helpers ARIA
 
 ```scss
 [aria-hidden="true"] {
@@ -123,7 +115,7 @@ Classe utilitaire pour masquer visuellement du contenu tout en le rendant access
 
 S'assure que les éléments marqués comme cachés via ARIA sont effectivement masqués visuellement.
 
-### Styles de Focus pour Éléments Interactifs
+## Styles de Focus pour Éléments Interactifs
 
 ```scss
 a:focus,

@@ -11,28 +11,26 @@ section: "styles"
 
 Le fichier `_forms.scss` établit des styles de base cohérents pour tous les éléments de formulaire du site. Ces styles assurent une expérience utilisateur fluide et accessible tout en maintenant une apparence uniforme à travers les différents types d'entrées.
 
-## Table des matières
+## Sommaire
 
-- [Introduction](#introduction)
-- [Structure HTML type](#structure-html-type)
-- [Fonctionnalités](#fonctionnalités)
-  - [Styles de Base pour Éléments de Formulaire](#styles-de-base-pour-éléments-de-formulaire)
-  - [Champs de Texte](#champs-de-texte)
-  - [Zone de Texte (Textarea)](#zone-de-texte-textarea)
-  - [Sélecteurs (Select)](#sélecteurs-select)
-  - [Cases à Cocher et Boutons Radio](#cases-à-cocher-et-boutons-radio)
-  - [Groupes de Formulaire](#groupes-de-formulaire)
-  - [Étiquettes](#étiquettes)
-  - [Messages d'Erreur](#messages-derreur)
-  - [Indicateur de Champ Obligatoire](#indicateur-de-champ-obligatoire)
-- [Utilisation type](#utilisation-type)
-  - [Formulaire de Contact](#formulaire-de-contact)
-  - [Sélecteur Personnalisé](#sélecteur-personnalisé)
-  - [Cases à Cocher](#cases-à-cocher)
-- [Tableau de références](#tableau-de-références)
-- [Bonnes pratiques](#bonnes-pratiques)
-- [Compatibilité](#compatibilité)
-- [Références](#références)
+1. [Introduction](#introduction)
+2. [Structure HTML type](#structure-html-type)
+3. [Styles de Base pour Éléments de Formulaire](#styles-de-base-pour-éléments-de-formulaire)
+4. [Champs de Texte](#champs-de-texte)
+5. [Zone de Texte (Textarea)](#zone-de-texte-textarea)
+6. [Sélecteurs (Select)](#sélecteurs-select)
+7. [Cases à Cocher et Boutons Radio](#cases-à-cocher-et-boutons-radio)
+8. [Groupes de Formulaire](#groupes-de-formulaire)
+9. [Étiquettes](#étiquettes)
+10. [Messages d'Erreur](#messages-derreur)
+11. [Indicateur de Champ Obligatoire](#indicateur-de-champ-obligatoire)
+12. [Formulaire de Contact](#formulaire-de-contact)
+13. [Sélecteur Personnalisé](#sélecteur-personnalisé)
+14. [Cases à Cocher](#cases-à-cocher)
+15. [Tableau de références](#tableau-de-références)
+16. [Bonnes pratiques](#bonnes-pratiques)
+17. [Compatibilité](#compatibilité)
+18. [Références](#références)
 
 ## Structure HTML type
 
@@ -44,9 +42,7 @@ Le fichier `_forms.scss` établit des styles de base cohérents pour tous les é
 </div>
 ```
 
-## Fonctionnalités
-
-### Styles de Base pour Éléments de Formulaire
+## Styles de Base pour Éléments de Formulaire
 
 ```scss
 input,
@@ -78,7 +74,7 @@ button {
 
 Ces styles de base s'appliquent à tous les éléments de formulaire, garantissant cohérence et accessibilité. Ils incluent la gestion des états de focus et désactivé.
 
-### Champs de Texte
+## Champs de Texte
 
 ```scss
 input[type="text"],
@@ -101,7 +97,7 @@ textarea {
 
 Styles spécifiques pour les champs de texte avec mise en forme des placeholders.
 
-### Zone de Texte (Textarea)
+## Zone de Texte (Textarea)
 
 ```scss
 textarea {
@@ -112,7 +108,7 @@ textarea {
 
 Configuration spécifique pour les zones de texte multi-lignes.
 
-### Sélecteurs (Select)
+## Sélecteurs (Select)
 
 ```scss
 select {
@@ -130,7 +126,7 @@ select {
 
 Personnalisation des menus déroulants avec une flèche personnalisée et suppression de l'apparence native.
 
-### Cases à Cocher et Boutons Radio
+## Cases à Cocher et Boutons Radio
 
 ```scss
 input[type="checkbox"],
@@ -142,7 +138,7 @@ input[type="radio"] {
 
 Styles de base pour les cases à cocher et boutons radio.
 
-### Groupes de Formulaire
+## Groupes de Formulaire
 
 ```scss
 .form-group {
@@ -152,7 +148,7 @@ Styles de base pour les cases à cocher et boutons radio.
 
 Espacement standard pour les groupes de formulaire.
 
-### Étiquettes
+## Étiquettes
 
 ```scss
 label {
@@ -164,7 +160,7 @@ label {
 
 Mise en forme des étiquettes de formulaire.
 
-### Messages d'Erreur
+## Messages d'Erreur
 
 ```scss
 .form-error {
@@ -176,7 +172,7 @@ Mise en forme des étiquettes de formulaire.
 
 Style pour les messages d'erreur de validation.
 
-### Indicateur de Champ Obligatoire
+## Indicateur de Champ Obligatoire
 
 ```scss
 .required::after {
@@ -188,9 +184,7 @@ Style pour les messages d'erreur de validation.
 
 Ajout d'un astérisque pour indiquer les champs obligatoires.
 
-## Utilisation type
-
-### Formulaire de Contact
+## Formulaire de Contact
 
 ```html
 <form class="contact-form">
@@ -214,7 +208,7 @@ Ajout d'un astérisque pour indiquer les champs obligatoires.
 </form>
 ```
 
-### Sélecteur Personnalisé
+## Sélecteur Personnalisé
 
 ```html
 <div class="form-group">
@@ -227,7 +221,7 @@ Ajout d'un astérisque pour indiquer les champs obligatoires.
 </div>
 ```
 
-### Cases à Cocher
+## Cases à Cocher
 
 ```html
 <div class="form-group">
